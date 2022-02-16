@@ -1,50 +1,25 @@
-name: Copy & Deploy
+name: Deploy
 
 on:
   push:
     branches: [ main ]
 
-
 jobs:
-         
-  copy:
-    name: copy
+            
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-    - uses: actions/checkout@v2
-    
-     # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        mkdir ../build
-        cp -TR . ../build
-        tar -cvf deploy.tar ../build/
-        
-    - name: copy file via ssh password
-      uses: appleboy/scp-action@master
+    - name: Executing remote ssh docker deploy
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_MACHINE }}
         username: ${{ secrets.DEPLOY_USERNAME }}
         password: ${{ secrets.DEPLOY_PASSWORD }}
-        source: "deploy.tar"
-        target: "/home/fiitkar/docker-folder/"
-        
-          
-#   deploy:
-#     name: deploy
-#     needs: build
-#     runs-on: ubuntu-latest
-#     timeout-minutes: 10
-#     permissions:
-#       contents: read
-#     steps:
-#     - name: Executing remote ssh docker deploy
-#       uses: appleboy/ssh-action@master
-#       with:
-#         host: ${{ secrets.HOST_MACHINE }}
-#         username: ${{ secrets.DEPLOY_USERNAME }}
-#         password: ${{ secrets.DEPLOY_PASSWORD }}
-#         script: |
-#           cd /home/fiitkar/docker-folder/
-#           docker-compose pull && docker-compose up --detach && docker system prune -f
+        script: |
+          cd /home/fiitkar/docker-folder/
+          git pull
+          docker-compose pull && docker-compose up --detach && docker system prune -f
