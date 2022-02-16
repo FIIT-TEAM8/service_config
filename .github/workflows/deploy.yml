@@ -21,5 +21,5 @@ jobs:
         password: ${{ secrets.DEPLOY_PASSWORD }}
         script: |
           cd /home/fiitkar/docker-folder/
-          git pull
+          git fetch && git pull
           docker-compose pull && docker-compose up --detach && docker system prune -f
