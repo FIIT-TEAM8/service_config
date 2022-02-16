@@ -38,7 +38,7 @@ jobs:
         username: ${{ secrets.DEPLOY_USERNAME }}
         password: ${{ secrets.DEPLOY_PASSWORD }}
         source: "*"
-        dest: "/home/fiitkar/docker-folder/"
+        target: "/home/fiitkar/docker-folder/"
         
           
 #   deploy:
