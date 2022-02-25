@@ -26,8 +26,11 @@ services:
       - ./data/certbot/www:/var/www/certbot
       - ./data/nginx-static:/usr/share/nginx/html
       - ./data/webdav:/data/www
-    # command to reload newly obtained SSL certificates
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    # reload nginx based on config
+    # keep reloading nginx every 6h to acquire new ssl certificates
+    command: > 
+      "/bin/sh -c 'nginx -s reload
+      && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     ports:
       - 80:80
       - 443:443
