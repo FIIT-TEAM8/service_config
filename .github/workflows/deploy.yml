@@ -23,4 +23,3 @@ jobs:
           cd /home/fiitkar/docker-folder/
           git fetch && git pull
           docker-compose pull && docker-compose up --detach && docker system prune -f
-          ./data/nginx/refresh-nginx.sh
