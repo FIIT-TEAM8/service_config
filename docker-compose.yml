@@ -83,7 +83,6 @@ services:
     container_name: pgadmin
     restart: always
     ports:
-      - 5050:80
       - 5050:443
     env_file:
       ./pgadmin.env
