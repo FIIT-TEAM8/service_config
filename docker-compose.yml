@@ -116,8 +116,6 @@ services:
     image: fiitteam8/news_scraper
     ports:
       - 6800:6800
-    volumes:
-      - ./data_link/scraper/scrapyd/scrapyd.conf:/myApp/scraper/scrapyd.conf
     env_file:
       - env/scraper.env
       - env/mongo_connection.env
