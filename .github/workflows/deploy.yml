@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ penis ]
+    branches: [ main ]
 
 jobs:
             
@@ -22,5 +22,6 @@ jobs:
         script: |
           cd /home/fiitkar/docker-folder/
           git fetch && git pull
+          ./decrypt_env.sh ${{ secrets.ENV_PASSWORD }}
           docker-compose pull && docker-compose up --detach && docker system prune -f
-          sh ./data/nginx/refresh-nginx.sh
+          sh ./data_link/nginx/refresh-nginx.sh
