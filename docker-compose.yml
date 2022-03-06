@@ -19,7 +19,6 @@ services:
       - node_server
       - mongo_express
       - scraper
-      - pgadmin
     volumes:
       - ./data_link/nginx:/etc/nginx/conf.d
       - ./data_link/certbot/conf:/etc/letsencrypt
