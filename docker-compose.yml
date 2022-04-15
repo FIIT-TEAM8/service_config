@@ -101,14 +101,11 @@ services:
     env_file:
       - env/node.env
 
-  scraper:
-    container_name: scraper
-    image: fiitteam8/news_scraper
-    ports:
-      - 6800:6800
+  scraping_scheduler:
+    image: fiitteam8/scraping_scheduler
+    container_name: scraping_scheduler
     env_file:
-      - env/scraper.env
-      - env/mongo_connection.env
+      - env/scraping_scheduler.env
 
   documentation:
     container_name: documentation
