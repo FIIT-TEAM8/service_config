@@ -14,7 +14,6 @@ services:
     container_name: nginx
     restart: always
     depends_on:
-      - es01
       - flask_server
       - node_server
       - mongo_express
@@ -30,23 +29,6 @@ services:
     ports:
       - 80:80
       - 443:443
-
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
-    container_name: es01
-    env_file:
-      - env/elastic.env
-    volumes:
-      # bind mount - <host-folder>:<container-folder>
-      # bind mount can be accessed on host computer, but changing data might invoke errors in container
-      # bind mount - /home/ykb/persistant_data/elasticsearch:/usr/share/elasticsearch/data
-      # volume - <volume-name>:<container-path>
-      # currently using bind mount approach
-      - ./data_link/es_index:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-        #networks:
-        #- elastic_mongo
    
   mongo_db:
     image: mongo:latest
